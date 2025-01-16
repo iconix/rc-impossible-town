@@ -54,7 +54,12 @@ class GameScene extends Phaser.Scene
         // for more info see: https://labs.phaser.io/view.html?src=src/animation/texture%20atlas%20animation.js
         // if you don't use an atlas, you can do the same thing with a spritesheet, see:
         //  https://labs.phaser.io/view.html?src=src/animation/single%20sprite%20sheet.js
-        this.load.atlas('atlas', 'public/assets/atlas/atlas.png', 'public/assets/atlas/atlas.json');
+        // this.load.atlas('atlas', 'public/assets/atlas/atlas.png', 'public/assets/atlas/atlas.json');
+
+        this.load.spritesheet('lenora', 'public/assets/sprites/lenora.png', {
+            frameWidth: 64,
+            frameHeight: 64
+        });
     }
 
     // runs once, after all assets in preload are loaded
@@ -144,7 +149,8 @@ class GameScene extends Phaser.Scene
         // collision shapes. in the tmx file, there's an object layer with a point named 'Spawn Point'
         const spawnPoint = map.findObject('Objects', (obj) => obj.name === 'Spawn Point');
 
-        this.gameState.player = this.physics.add.sprite(spawnPoint.x || 400, spawnPoint.y || 350, 'atlas', 'misa-front');
+        // this.gameState.player = this.physics.add.sprite(spawnPoint.x || 400, spawnPoint.y || 350, 'atlas', 'misa-front');
+        this.gameState.player = this.physics.add.sprite(spawnPoint.x || 400, spawnPoint.y || 350, 'lenora');
 
         if (!this.gameState.player) {
             console.error('failed to create player sprite');
@@ -162,45 +168,67 @@ class GameScene extends Phaser.Scene
     createPlayerAnimations() {
         const animations = [
             {
-              key: 'misa-left-walk',
-              prefix: 'misa-left-walk.',
+              key: 'lenora-front-walk',
               start: 0,
               end: 3
             },
             {
-              key: 'misa-right-walk',
-              prefix: 'misa-right-walk.',
-              start: 0,
-              end: 3
+              key: 'lenora-left-walk',
+              start: 4,
+              end: 7
             },
             {
-              key: 'misa-front-walk',
-              prefix: 'misa-front-walk.',
-              start: 0,
-              end: 3
+              key: 'lenora-right-walk',
+              start: 8,
+              end: 11
             },
             {
-              key: 'misa-back-walk',
-              prefix: 'misa-back-walk.',
-              start: 0,
-              end: 3
+              key: 'lenora-back-walk',
+              start: 12,
+              end: 15
             }
-          ];
+        ];
 
-        animations.forEach(({ key, prefix, start, end }) => {
+        const idling = [
+            {
+                key: 'lenora-front',
+                frame: 0,
+            },
+            {
+                key: 'lenora-left',
+                frame: 4,
+            },
+            {
+                key: 'lenora-right',
+                frame: 8,
+            },
+            {
+                key: 'lenora-back',
+                frame: 12,
+            },
+        ];
+
+        animations.forEach(({ key, start, end }) => {
             // create the player's walking animations from the texture atlas.
             // these are stored in the global animation manager so any sprite can access them.
             this.anims.create({
                 key,
-                frames: this.anims.generateFrameNames('atlas', {
-                    prefix,
+                frames: this.anims.generateFrameNumbers('lenora', {
                     start,
                     end,
-                    zeroPad: 3
                 }),
                 frameRate: 10,
                 repeat: -1
             });
+        });
+
+        idling.forEach(({ key, frame }) => {
+            // create the idle frames from the sprite sheet
+            this.anims.create({
+                key,
+                frames: [{ key: 'lenora', frame: frame }],
+                frameRate: 10
+            })
         });
     }
 
@@ -267,21 +295,21 @@ class GameScene extends Phaser.Scene
 
         // update the animation last and give left/right animations precedence over up/down animations
         if (cursors.left.isDown) {
-            player.anims.play('misa-left-walk', true);
+            player.anims.play('lenora-left-walk', true);
         } else if (cursors.right.isDown) {
-            player.anims.play('misa-right-walk', true);
+            player.anims.play('lenora-right-walk', true);
         } else if (cursors.up.isDown) {
-            player.anims.play('misa-back-walk', true);
+            player.anims.play('lenora-back-walk', true);
         } else if (cursors.down.isDown) {
-            player.anims.play('misa-front-walk', true);
+            player.anims.play('lenora-front-walk', true);
         } else {
             player.anims.stop();
 
             // set idle frame based on previous movement
-            if (prevVelocity.x < 0) player.setTexture('atlas', 'misa-left');
-            else if (prevVelocity.x > 0) player.setTexture('atlas', 'misa-right');
-            else if (prevVelocity.y < 0) player.setTexture('atlas', 'misa-back');
-            else if (prevVelocity.y > 0) player.setTexture('atlas', 'misa-front');
+            if (prevVelocity.x < 0) player.anims.play('lenora-left', true);
+            else if (prevVelocity.x > 0) player.anims.play('lenora-right', true);
+            else if (prevVelocity.y < 0) player.anims.play('lenora-back', true);
+            else if (prevVelocity.y > 0) player.anims.play('lenora-front', true);
         }
     }
 
