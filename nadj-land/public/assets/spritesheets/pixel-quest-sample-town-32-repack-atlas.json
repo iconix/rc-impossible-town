@@ -1,0 +1,76 @@
+{
+    "frames": {
+        "closed_barrel": {
+            "frame": { "x": 0, "y": 0, "w": 32, "h": 32 }
+        },
+        "open_barrel": {
+            "frame": { "x": 32, "y": 0, "w": 32, "h": 32 }
+        },
+        "right_chimney_1": {
+            "frame": { "x": 64, "y": 0, "w": 32, "h": 32 }
+        },
+        "right_chimney_2": {
+            "frame": { "x": 96, "y": 0, "w": 32, "h": 32 }
+        },
+        "right_chimney_3": {
+            "frame": { "x": 128, "y": 0, "w": 32, "h": 32 }
+        },
+        "right_chimney_4": {
+            "frame": { "x": 160, "y": 0, "w": 32, "h": 32 }
+        },
+        "right_chimney_5": {
+            "frame": { "x": 192, "y": 0, "w": 32, "h": 32 }
+        },
+        "right_chimney_6": {
+            "frame": { "x": 224, "y": 0, "w": 32, "h": 32 }
+        },
+        "left_chimney_1": {
+            "frame": { "x": 256, "y": 0, "w": 32, "h": 32 }
+        },
+        "left_chimney_2": {
+            "frame": { "x": 288, "y": 0, "w": 32, "h": 32 }
+        },
+        "left_chimney_3": {
+            "frame": { "x": 320, "y": 0, "w": 32, "h": 32 }
+        },
+        "left_chimney_4": {
+            "frame": { "x": 0, "y": 32, "w": 32, "h": 32 }
+        },
+        "left_chimney_5": {
+            "frame": { "x": 32, "y": 32, "w": 32, "h": 32 }
+        },
+        "left_chimney_6": {
+            "frame": { "x": 64, "y": 32, "w": 32, "h": 32 }
+        },
+        "left_chimney": {
+            "frame": { "x": 96, "y": 32, "w": 32, "h": 32 }
+        },
+        "right_chimney": {
+            "frame": { "x": 128, "y": 32, "w": 32, "h": 32 }
+        },
+        "bench": {
+            "frame": { "x": 160, "y": 32, "w": 32, "h": 32 }
+        },
+        "fountain": {
+            "frame": { "x": 192, "y": 32, "w": 32, "h": 32 }
+        },
+        "fountain_1": {
+            "frame": { "x": 224, "y": 32, "w": 32, "h": 32 }
+        },
+        "fountain_2": {
+            "frame": { "x": 256, "y": 32, "w": 32, "h": 32 }
+        },
+        "fountain_3": {
+            "frame": { "x": 288, "y": 32, "w": 32, "h": 32 }
+        },
+        "fountain_4": {
+            "frame": { "x": 320, "y": 32, "w": 32, "h": 32 }
+        }
+    },
+    "meta": {
+        "image": "pixel-quest-sample-town-32-repack.png",
+        "format": "RGBA8888",
+        "size": {"w": 352, "h": 64},
+        "scale": "1"
+    }
+}

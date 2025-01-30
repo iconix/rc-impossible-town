@@ -1,6 +1,6 @@
 /**
  * A top-down RPG-style game using Phaser 3
- * Based on Post 1 of https://github.com/mikewesthad/phaser-3-tilemap-blog-posts
+ * Based on https://github.com/mikewesthad/phaser-3-tilemap-blog-posts/tree/master/posts/post-1
  *
  * Asset Credits:
  * - Tuxemon: https://github.com/Tuxemon/Tuxemon

@@ -1,0 +1,134 @@
+{
+    "frames": {
+        "front-idle": {
+            "frame": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "front-walk-1": {
+            "frame": { "x": 64, "y": 0, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "front-walk-2": {
+            "frame": { "x": 128, "y": 0, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "front-walk-3": {
+            "frame": { "x": 192, "y": 0, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "left-idle": {
+            "frame": { "x": 0, "y": 64, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "left-walk-1": {
+            "frame": { "x": 64, "y": 64, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "left-walk-2": {
+            "frame": { "x": 128, "y": 64, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "left-walk-3": {
+            "frame": { "x": 192, "y": 64, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "right-idle": {
+            "frame": { "x": 0, "y": 128, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "right-walk-1": {
+            "frame": { "x": 64, "y": 128, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "right-walk-2": {
+            "frame": { "x": 128, "y": 128, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "right-walk-3": {
+            "frame": { "x": 192, "y": 128, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "back-idle": {
+            "frame": { "x": 0, "y": 192, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "back-walk-1": {
+            "frame": { "x": 64, "y": 192, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "back-walk-2": {
+            "frame": { "x": 128, "y": 192, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        },
+        "back-walk-3": {
+            "frame": { "x": 192, "y": 192, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 }
+        }
+    },
+    "meta": {
+        "app": "Lenora Character Sprite Atlas",
+        "version": "1.0",
+        "image": "lenora.png",
+        "format": "RGBA8888",
+        "size": { "w": 256, "h": 256 },
+        "scale": "1",
+        "frameTags": [
+            { "name": "front-idle", "from": 0, "to": 0, "direction": "forward" },
+            { "name": "front-walk", "from": 1, "to": 3, "direction": "forward" },
+            { "name": "left-idle", "from": 4, "to": 4, "direction": "forward" },
+            { "name": "left-walk", "from": 5, "to": 7, "direction": "forward" },
+            { "name": "right-idle", "from": 8, "to": 8, "direction": "forward" },
+            { "name": "right-walk", "from": 9, "to": 11, "direction": "forward" },
+            { "name": "back-idle", "from": 12, "to": 12, "direction": "forward" },
+            { "name": "back-walk", "from": 13, "to": 15, "direction": "forward" }
+        ]
+    }
+}

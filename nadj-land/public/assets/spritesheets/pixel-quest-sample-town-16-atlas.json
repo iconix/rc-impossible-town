@@ -1,0 +1,19 @@
+{
+    "frames": {
+        "written_signpost_medium": {
+            "frame": { "x": 400, "y": 96, "w": 16, "h": 16 }
+        },
+        "wooden_door_closed": {
+            "frame": { "x": 640, "y": 192, "w": 16, "h": 16 }
+        },
+        "wooden_door_open": {
+            "frame": { "x": 624, "y": 192, "w": 16, "h": 16 }
+        }
+    },
+    "meta": {
+        "image": "pixel-quest-sample-town-16.png",
+        "format": "RGBA8888",
+        "size": {"w": 880, "h": 256},
+        "scale": "1"
+    }
+}
