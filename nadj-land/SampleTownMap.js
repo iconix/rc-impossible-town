@@ -132,7 +132,7 @@ class TownScene extends Phaser.Scene
             }
         }
 
-        this.scale.on('resize', this.handleResize, this);
+        this.scale.on('resize', () => { this.handleResize(map) }, this);
     }
 
     // runs once per frame for the duration of the scene
@@ -517,7 +517,7 @@ class TownScene extends Phaser.Scene
         doorObj.play('door_open');
     }
 
-    handleResize() {
+    handleResize(map) {
         // handle viewport resizing
         if (this.cameras.main) {
             // ensure camera position is on pixel boundaries
@@ -525,7 +525,7 @@ class TownScene extends Phaser.Scene
             this.cameras.main.scrollY = Math.floor(this.cameras.main.scrollY);
 
             // update all layer positions
-            const layers = this.map?.layers || [];
+            const layers = map?.layers || [];
             layers.forEach(layer => {
                 if (layer.tilemapLayer) {
                     layer.tilemapLayer.setPosition(
@@ -974,10 +974,11 @@ class InteriorScene extends Phaser.Scene {
 }
 
 
-const SCALE_FACTOR = 4;  // note: prefer a round number here
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 560;
+const SCALE_FACTOR = Math.max(4, Math.floor(window.innerWidth / CANVAS_WIDTH));  // note: prefer a round number here
 
+/** @type {Phaser.Types.Core.GameConfig} */
 const CONFIG = {
     type: Phaser.AUTO,                      // which renderer to use
     width: CANVAS_WIDTH,                    // canvas width in pixels
@@ -992,15 +993,15 @@ const CONFIG = {
     },
     scale: {
         mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        autoRound: true
     },
     render: {
         antialias: false,
         pixelArt: true,
         roundPixels: true,
         powerPreference: 'high-performance' // for better mobile performance
-    },
-    backgroundColor: '#000000'              // add a background color to prevent bleeding
+    }
 };
 
 const GAME = new Phaser.Game(CONFIG);
