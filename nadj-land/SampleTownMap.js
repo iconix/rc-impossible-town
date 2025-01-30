@@ -156,10 +156,18 @@ class TownScene extends Phaser.Scene
         }
 
         // parameters: layer name (or index) from Tiled, tileset
-        const groundLayer = map.createLayer('Ground', [tileset16, tileset32]);
-        const groundDecorationLayer = map.createLayer('Ground Decoration', [tileset16, tileset32]);
-        const worldLayer = map.createLayer('World', [tileset16, tileset32]);
-        const aboveWorldLayer = map.createLayer('Above World', [tileset16, tileset32]);
+        const groundLayer = map.createLayer('Ground', [tileset16, tileset32])
+            ?.setScale(1)
+            .setPipeline('TextureTintPipeline');
+        const groundDecorationLayer = map.createLayer('Ground Decoration', [tileset16, tileset32])
+            ?.setScale(1)
+            .setPipeline('TextureTintPipeline');
+        const worldLayer = map.createLayer('World', [tileset16, tileset32])
+            ?.setScale(1)
+            .setPipeline('TextureTintPipeline');
+        const aboveWorldLayer = map.createLayer('Above World', [tileset16, tileset32])
+            ?.setScale(1)
+            .setPipeline('TextureTintPipeline');
 
         // special way to create a layer from an object layer
         const objectLayer = map.getObjectLayer('Objects');
