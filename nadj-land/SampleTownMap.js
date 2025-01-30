@@ -104,6 +104,8 @@ class TownScene extends Phaser.Scene
 
         this.cameras.main.roundPixels = true;
         this.cameras.main.setZoom(SCALE_FACTOR);
+        this.cameras.main.scrollX = Math.floor(this.cameras.main.scrollX);
+        this.cameras.main.scrollY = Math.floor(this.cameras.main.scrollY);
 
         const uiCamera = this.cameras.add(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
         uiCamera.setScroll(0, 0);
