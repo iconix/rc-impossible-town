@@ -947,15 +947,15 @@ const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 560;
 
 const CONFIG = {
-    type: Phaser.AUTO,          // which renderer to use
-    width: CANVAS_WIDTH,        // canvas width in pixels
-    height: CANVAS_HEIGHT,      // canvas height in pixels
-    parent: 'game-container',   // id of the dom element to add the canvas to
+    type: Phaser.AUTO,                      // which renderer to use
+    width: CANVAS_WIDTH,                    // canvas width in pixels
+    height: CANVAS_HEIGHT,                  // canvas height in pixels
+    parent: 'game-container',               // id of the dom element to add the canvas to
     scene: [TownScene, InteriorScene],
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { x: 0, y: 0 }   // top down game, so no gravity
+            gravity: { x: 0, y: 0 }         // top down game, so no gravity
         }
     },
     scale: {
@@ -965,8 +965,10 @@ const CONFIG = {
     render: {
         antialias: false,
         pixelArt: true,
-        roundPixels: true
-    }
+        roundPixels: true,
+        powerPreference: 'high-performance' // for better mobile performance
+    },
+    backgroundColor: '#000000'              // add a background color to prevent bleeding
 };
 
 const GAME = new Phaser.Game(CONFIG);
