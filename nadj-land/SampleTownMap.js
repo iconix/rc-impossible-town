@@ -524,6 +524,10 @@ class TownScene extends Phaser.Scene
             this.cameras.main.scrollX = Math.floor(this.cameras.main.scrollX);
             this.cameras.main.scrollY = Math.floor(this.cameras.main.scrollY);
 
+            SCALE_FACTOR = Math.min(4, Math.round(window.innerWidth / CANVAS_WIDTH));  // note: prefer a round number here
+            console.log("SCALE_FACTOR:", SCALE_FACTOR);
+            this.cameras.main.setZoom(SCALE_FACTOR);
+
             // update all layer positions
             const layers = map?.layers || [];
             layers.forEach(layer => {
@@ -976,7 +980,9 @@ class InteriorScene extends Phaser.Scene {
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 560;
-const SCALE_FACTOR = Math.max(4, Math.floor(window.innerWidth / CANVAS_WIDTH));  // note: prefer a round number here
+let SCALE_FACTOR = Math.min(4, Math.round(window.innerWidth / CANVAS_WIDTH));  // note: prefer a round number here
+
+console.log("SCALE_FACTOR:", SCALE_FACTOR);
 
 /** @type {Phaser.Types.Core.GameConfig} */
 const CONFIG = {
