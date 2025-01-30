@@ -445,7 +445,7 @@ class TownScene extends Phaser.Scene
 
             // stop any ongoing animations and set to idle
             this.townState.player.anims.stop();
-            this.townState.player.anims.play(`lenora-${this.townState.lastDirection}`, true);
+            this.townState.player.anims.play(`lenora-back`, true);
         }
 
          // first center the player horizontally on the door
