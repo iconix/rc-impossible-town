@@ -1,4 +1,7 @@
-import { Character, Position, HUMAN_PLAYER_ID, Conversation, WORLD_SIZE } from './types';
+import { BasicConversationStrategy, EmojiConversationStrategy } from './conversationStrategies';
+import { Character, Position, HUMAN_PLAYER_ID, Conversation, WORLD_SIZE, ConversationStrategy } from './types';
+
+
 
 interface AIContext {
     characters: Map<string, Character>;
@@ -8,22 +11,42 @@ interface AIContext {
 }
 
 interface AIAction {
-    type: 'move' | 'initiate_conversation';
+    type: 'move' | 'initiate_conversation' | 'respond';
     aiId: string;
     data?: {
         position?: Position;
+        message?: string;
+        conversationId?: string;
     };
 }
 
 export class AIAgent {
-    private static readonly MOVE_CHANCE = 0.3;
-    private static readonly FOLLOW_PLAYER_CHANCE = 0.3;
-    private static readonly CONVERSATION_CHANCE = 0.1;
+    private static conversationStrategy: ConversationStrategy = new BasicConversationStrategy();
+
+    static setConversationStrategy(strategy: ConversationStrategy) {
+        this.conversationStrategy = strategy;
+    }
+
+    static getConversationStrategy(): ConversationStrategy {
+        return this.conversationStrategy;
+    }
 
     static updateAIs(context: AIContext): AIAction[] {
         const actions: AIAction[] = [];
         const player = context.characters.get(HUMAN_PLAYER_ID);
         if (!player) return actions;
+
+        // Get movement modifiers if using EmojiConversationStrategy
+        const getModifiers = (aiId: string) => {
+            if (this.conversationStrategy instanceof EmojiConversationStrategy) {
+                return this.conversationStrategy.getMovementModifiers(aiId);
+            }
+            return {
+                moveChance: 0.3,
+                followChance: 0.3,
+                conversationChance: 0.1
+            };
+        };
 
         // Only consider conversations where chat mode is active
         const anyAIInConversation = Array.from(context.conversations.values())
@@ -35,6 +58,8 @@ export class AIAgent {
 
         context.characters.forEach((char, id) => {
             if (char.isHuman) return;
+
+            const modifiers = getModifiers(id);
 
             // Check if this specific AI is in an active conversation
             const isInConversation = Array.from(context.conversations.values())
@@ -50,7 +75,7 @@ export class AIAgent {
 
             // If another AI is in an active conversation, only do random movements
             if (anyAIInConversation) {
-                if (Math.random() < this.MOVE_CHANCE) {
+                if (Math.random() < modifiers.moveChance) {
                     const newPosition = this.calculateRandomPosition(char);
                     if (this.isValidPosition(newPosition, context)) {
                         actions.push({
@@ -64,25 +89,15 @@ export class AIAgent {
             }
 
             // Otherwise, no conversations are happening
-
-            // Check if adjacent to player
-            const isAdjacent = this.isAdjacentToPlayer(char, player);
-
-            // Try to initiate conversation
-            if (isAdjacent && !context.hasActiveConversation && Math.random() < this.CONVERSATION_CHANCE) {
-                actions.push({
-                    type: 'initiate_conversation',
-                    aiId: id
-                });
-                return; // Skip movement if initiating conversation
-            }
-
-            // Handle movement: random + following player
-            if (Math.random() < this.MOVE_CHANCE) {
-                const shouldFollowPlayer = Math.random() < this.FOLLOW_PLAYER_CHANCE;
-                const newPosition = shouldFollowPlayer ?
-                    this.calculateFollowPosition(char, player) :
-                    this.calculateRandomPosition(char);
+            if (Math.random() < modifiers.moveChance) {
+                let newPosition;
+                if (Math.random() < modifiers.followChance) {
+                    // Move towards player based on personality
+                    newPosition = this.calculateFollowPosition(char, player);
+                } else {
+                    // Random movement
+                    newPosition = this.calculateRandomPosition(char);
+                }
 
                 if (this.isValidPosition(newPosition, context)) {
                     actions.push({
@@ -92,9 +107,27 @@ export class AIAgent {
                     });
                 }
             }
+
+            // Check for conversation initiation
+            const isAdjacent = this.isAdjacentToPlayer(char, player);
+            if (isAdjacent && !context.hasActiveConversation &&
+                Math.random() < modifiers.conversationChance) {
+                actions.push({
+                    type: 'initiate_conversation',
+                    aiId: id
+                });
+            }
         });
 
         return actions;
+    }
+
+    static generateFirstMessage(aiId: string): string | Promise<string> {
+        return this.conversationStrategy.generateFirstMessage(aiId);
+    }
+
+    static generateResponse(message: string, aiId: string): string | Promise<string> {
+        return this.conversationStrategy.generateResponse(message, aiId);
     }
 
     private static isAdjacentToPlayer(ai: Character, player: Character): boolean {

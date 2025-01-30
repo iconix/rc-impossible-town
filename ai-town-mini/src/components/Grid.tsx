@@ -17,7 +17,7 @@ export function Grid({
     isInChatMode,
     activeConversation
 }: GridProps) {
-    const findNumberOrFirstCharacter = (str: string) => (str.match(/\d+/) || [str.charAt(0)])[0];
+    const findFirstCharacterOrWithNumber = (str: string) => (str.match(/\d+/) ? str.charAt(0) + str.match(/\d+/)[0] : str.charAt(0));
 
     const isCharacterTalking = (character: Character) => {
         return isInChatMode &&
@@ -55,7 +55,7 @@ export function Grid({
                                     transition-all duration-200
                                     ${isCharacterTalking(character) ? 'ring-2 ring-yellow-300 ring-offset-1' : ''}
                                 `}>
-                                    {findNumberOrFirstCharacter(character.name)}
+                                    {findFirstCharacterOrWithNumber(character.name)}
                                     {isCharacterTalking(character) && !character.isHuman && (
                                         <div className="absolute -top-2 -right-2 text-yellow-300 animate-bounce">
                                             💭

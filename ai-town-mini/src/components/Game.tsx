@@ -1,10 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChatBox } from './ChatBox';
 import { Grid } from './Grid';
-import { Position, Character, Conversation, WORLD_SIZE, HUMAN_PLAYER_ID, AI_RESPONSES, AI_GREETINGS, SPACE_CHAR } from '../types';
+import { Position, Character, Conversation, WORLD_SIZE, HUMAN_PLAYER_ID, SPACE_CHAR } from '../types';
 import { AIAgent } from '../aiAgent';
+import { ConversationStyle, setupConversationStyle } from '../conversationStrategies';
 
-export default function Game() {
+interface GameProps {
+    conversationStyle?: ConversationStyle;
+}
+
+export default function Game({ conversationStyle = 'emoji' }: GameProps) {
     // Game state
     const [characters, setCharacters] = useState<Map<string, Character>>(new Map());
     const [conversations, setConversations] = useState<Map<string, Conversation>>(new Map());
@@ -15,29 +20,7 @@ export default function Game() {
 
     // Initialize game
     useEffect(() => {
-        const newCharacters = new Map<string, Character>();
-
-        // Add player
-        newCharacters.set(HUMAN_PLAYER_ID, {
-            id: HUMAN_PLAYER_ID,
-            position: { x: 0, y: 0 },
-            isHuman: true,
-            name: 'Player'
-        });
-
-        // Add AI characters
-        for (let i = 0; i < 5; i++) {
-            const id = `ai-${i}`;
-            newCharacters.set(id, {
-                id,
-                position: {
-                    x: Math.floor(Math.random() * WORLD_SIZE.x),
-                    y: Math.floor(Math.random() * WORLD_SIZE.y)
-                },
-                isHuman: false,
-                name: `AI ${i + 1}`
-            });
-        }
+        const { characters: newCharacters } = setupConversationStyle(conversationStyle, HUMAN_PLAYER_ID);
 
         setCharacters(newCharacters);
     }, []);
@@ -78,7 +61,7 @@ export default function Game() {
             // If we found an existing conversation and need to greet,
             // add greeting to the existing conversation
             if (shouldGreet) {
-                const greeting = AI_GREETINGS[Math.floor(Math.random() * AI_GREETINGS.length)];
+                const greeting = AIAgent.generateFirstMessage(aiId);
                 const updatedConversation = {
                     ...existingConversation,
                     messages: [...existingConversation.messages, {
@@ -106,11 +89,10 @@ export default function Game() {
             participants: [HUMAN_PLAYER_ID, aiId],
             messages: shouldGreet ? [{
                 authorId: aiId,
-                text: AI_GREETINGS[Math.floor(Math.random() * AI_GREETINGS.length)],
+                text: AIAgent.generateFirstMessage(aiId),
                 timestamp: Date.now()
             }] : []
         };
-
 
         setConversations(convs => {
             const newConvs = new Map(convs);
@@ -122,9 +104,10 @@ export default function Game() {
         return conversationId;
     }, [conversations]);
 
-    const handleSendMessage = useCallback((text: string) => {
+    const handleSendMessage = useCallback(async (text: string) => {
         if (!activeConversation) return;
 
+        // Add player message immediately
         const updatedConversation = {
             ...activeConversation,
             messages: [
@@ -132,7 +115,6 @@ export default function Game() {
                 { authorId: HUMAN_PLAYER_ID, text, timestamp: Date.now() }
             ]
         };
-
         setConversations(convs => {
             const newConvs = new Map(convs);
             newConvs.set(activeConversation.id, updatedConversation);
@@ -140,12 +122,13 @@ export default function Game() {
         });
         setActiveConversation(updatedConversation);
 
-        // AI response
-        setTimeout(() => {
-            const aiResponse = AI_RESPONSES[Math.floor(Math.random() * AI_RESPONSES.length)];
-            const aiParticipant = activeConversation.participants.find(id => id !== HUMAN_PLAYER_ID);
+        // Get AI response
+        const aiParticipant = activeConversation.participants.find(id => id !== HUMAN_PLAYER_ID);
+        if (aiParticipant) {
+            try {
+                const strategy = AIAgent.getConversationStrategy();
+                const aiResponse = await strategy.generateResponse(text, aiParticipant);
 
-            if (aiParticipant) {
                 const conversationWithResponse = {
                     ...updatedConversation,
                     messages: [
@@ -160,8 +143,10 @@ export default function Game() {
                     return newConvs;
                 });
                 setActiveConversation(conversationWithResponse);
+            } catch (error) {
+                console.error('Error generating AI response:', error);
             }
-        }, 1000);
+        }
     }, [activeConversation]);
 
     useEffect(() => {
