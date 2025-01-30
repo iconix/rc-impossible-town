@@ -131,6 +131,8 @@ class TownScene extends Phaser.Scene
                 });
             }
         }
+
+        this.scale.on('resize', this.handleResize, this);
     }
 
     // runs once per frame for the duration of the scene
@@ -513,6 +515,26 @@ class TownScene extends Phaser.Scene
         });
 
         doorObj.play('door_open');
+    }
+
+    handleResize() {
+        // handle viewport resizing
+        if (this.cameras.main) {
+            // ensure camera position is on pixel boundaries
+            this.cameras.main.scrollX = Math.floor(this.cameras.main.scrollX);
+            this.cameras.main.scrollY = Math.floor(this.cameras.main.scrollY);
+
+            // update all layer positions
+            const layers = this.map?.layers || [];
+            layers.forEach(layer => {
+                if (layer.tilemapLayer) {
+                    layer.tilemapLayer.setPosition(
+                        Math.floor(layer.tilemapLayer.x),
+                        Math.floor(layer.tilemapLayer.y)
+                    );
+                }
+            });
+        }
     }
 
     createCameraPan(map) {
