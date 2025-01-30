@@ -709,6 +709,9 @@ class TownScene extends Phaser.Scene
         // @ts-ignore
         const body = player.body;
 
+        // make the body collide with world boundaries
+        body?.setCollideWorldBounds(true);
+
         // stop any previous movement from the last frame
         body?.setVelocity(0);
 
