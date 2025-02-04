@@ -53,18 +53,18 @@ class TownScene extends Phaser.Scene
         // load tilemap and tileset assets
         this.load.tilemapTiledJSON('town', 'public/assets/tilemaps/sample-town.tmj');
         this.load.atlas('town-objects-32',
-            'public/assets/spritesheets/pixel-quest-sample-town-32-repack.png',
-            'public/assets/spritesheets/pixel-quest-sample-town-32-repack-atlas.json'
+            'public/assets/textures/pixel-quest-sample-town-32-repack.png',
+            'public/assets/textures/pixel-quest-sample-town-32-repack-atlas.json'
         );
         this.load.atlas('town-objects-16',
-            'public/assets/spritesheets/pixel-quest-sample-town-16.png',
-            'public/assets/spritesheets/pixel-quest-sample-town-16-atlas.json'
+            'public/assets/textures/pixel-quest-sample-town-16.png',
+            'public/assets/textures/pixel-quest-sample-town-16-atlas.json'
         );
 
         // load character sprite atlas
         this.load.atlas('lenora',
-            'public/assets/spritesheets/lenora.png',
-            'public/assets/spritesheets/lenora-atlas.json'
+            'public/assets/textures/lenora.png',
+            'public/assets/textures/lenora-atlas.json'
         );
     }
 
