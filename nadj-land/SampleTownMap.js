@@ -104,8 +104,6 @@ class TownScene extends Phaser.Scene
 
         this.cameras.main.roundPixels = true;
         this.cameras.main.setZoom(SCALE_FACTOR);
-        this.cameras.main.scrollX = Math.floor(this.cameras.main.scrollX);
-        this.cameras.main.scrollY = Math.floor(this.cameras.main.scrollY);
 
         const uiCamera = this.cameras.add(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
         uiCamera.setScroll(0, 0);
@@ -131,8 +129,6 @@ class TownScene extends Phaser.Scene
                 });
             }
         }
-
-        this.scale.on('resize', () => { this.handleResize(map) }, this);
     }
 
     // runs once per frame for the duration of the scene
@@ -158,18 +154,10 @@ class TownScene extends Phaser.Scene
         }
 
         // parameters: layer name (or index) from Tiled, tileset
-        const groundLayer = map.createLayer('Ground', [tileset16, tileset32])
-            ?.setScale(1)
-            .setPipeline('TextureTintPipeline');
-        const groundDecorationLayer = map.createLayer('Ground Decoration', [tileset16, tileset32])
-            ?.setScale(1)
-            .setPipeline('TextureTintPipeline');
-        const worldLayer = map.createLayer('World', [tileset16, tileset32])
-            ?.setScale(1)
-            .setPipeline('TextureTintPipeline');
-        const aboveWorldLayer = map.createLayer('Above World', [tileset16, tileset32])
-            ?.setScale(1)
-            .setPipeline('TextureTintPipeline');
+        const groundLayer = map.createLayer('Ground', [tileset16, tileset32]);
+        const groundDecorationLayer = map.createLayer('Ground Decoration', [tileset16, tileset32]);
+        const worldLayer = map.createLayer('World', [tileset16, tileset32]);
+        const aboveWorldLayer = map.createLayer('Above World', [tileset16, tileset32]);
 
         // special way to create a layer from an object layer
         const objectLayer = map.getObjectLayer('Objects');
@@ -515,26 +503,6 @@ class TownScene extends Phaser.Scene
         });
 
         doorObj.play('door_open');
-    }
-
-    handleResize(map) {
-        // handle viewport resizing
-        if (this.cameras.main) {
-            // ensure camera position is on pixel boundaries
-            this.cameras.main.scrollX = Math.floor(this.cameras.main.scrollX);
-            this.cameras.main.scrollY = Math.floor(this.cameras.main.scrollY);
-
-            // update all layer positions
-            const layers = map?.layers || [];
-            layers.forEach(layer => {
-                if (layer.tilemapLayer) {
-                    layer.tilemapLayer.setPosition(
-                        Math.floor(layer.tilemapLayer.x),
-                        Math.floor(layer.tilemapLayer.y)
-                    );
-                }
-            });
-        }
     }
 
     createCameraPan(map) {
@@ -980,7 +948,7 @@ class InteriorScene extends Phaser.Scene {
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 560;
 
-const SCALE_FACTOR = Math.max(4, Math.round(window.innerWidth / CANVAS_WIDTH));  // note: prefer a round number here
+const SCALE_FACTOR = 4;  // note: prefer a round number here
 
 /** @type {Phaser.Types.Core.GameConfig} */
 const CONFIG = {
@@ -1003,8 +971,7 @@ const CONFIG = {
     render: {
         antialias: false,
         pixelArt: true,
-        roundPixels: true,
-        powerPreference: 'high-performance' // for better mobile performance
+        roundPixels: true
     }
 };
 
