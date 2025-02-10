@@ -3,7 +3,7 @@
  <editorsettings>
   <export target="pixel-quest-sample-town-32-repack.tsj" format="json"/>
  </editorsettings>
- <image source="../spritesheets/pixel-quest-sample-town-32-repack.png" width="352" height="64"/>
+ <image source="../textures/pixel-quest-sample-town-32-repack.png" width="352" height="64"/>
  <tile id="0">
   <properties>
    <property name="atlas" value="town-objects-32"/>

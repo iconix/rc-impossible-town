@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.11.1" name="pixel-quest-sample-town-16" tilewidth="16" tileheight="16" tilecount="880" columns="55">
- <image source="../spritesheets/pixel-quest-sample-town-16.png" width="880" height="256"/>
+ <image source="../textures/pixel-quest-sample-town-16.png" width="880" height="256"/>
  <tile id="0">
   <properties>
    <property name="atlas" value="town-objects-16"/>
