@@ -544,7 +544,7 @@ class TownScene extends Phaser.Scene
         }
 
         // smaller map, make player smaller
-        this.townState.player.setScale(0.4, 0.4);
+        this.townState.player.setScale(0.5, 0.5);
 
         // set a small hitbox to allow player to move through tighter spaces
         this.townState.player.body?.setSize(18, 18);
@@ -563,7 +563,7 @@ class TownScene extends Phaser.Scene
 
         camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-        this.createHelpText();
+        // this.createHelpText();
     }
 
     createPlayerAnimations() {
@@ -945,10 +945,10 @@ class InteriorScene extends Phaser.Scene {
 }
 
 
-const CANVAS_WIDTH = 800;
-const CANVAS_HEIGHT = 560;
+const CANVAS_WIDTH = 400;
+const CANVAS_HEIGHT = 280;
 
-const SCALE_FACTOR = 4;  // note: prefer a round number here
+const SCALE_FACTOR = 2;  // note: prefer a round number here
 
 /** @type {Phaser.Types.Core.GameConfig} */
 const CONFIG = {
